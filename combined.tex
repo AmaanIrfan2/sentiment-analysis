@@ -1,0 +1,1201 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{4}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\newcommand{\indextopic}[2]{\noindent\hyperref[#1]{\textbf{#2}}\par}
+\newcommand{\indexentry}[2]{\noindent\hspace*{1.5em}\hyperref[#1]{#2}\nobreak\hfill\hyperref[#1]{\pageref*{#1}}\par}
+
+\author{}
+\date{}
+
+\begin{document}
+\section*{Sentiment Analysis Documentation}
+\indextopic{topic-overview}{1. Overview}
+\vspace{0.25em}
+\indexentry{file-project-overview}{1.1 Project Overview}
+\indexentry{file-configuration-cli}{1.2 Configuration \& CLI}
+\vspace{0.9em}
+
+\indextopic{topic-pipelines}{2. Pipelines}
+\vspace{0.25em}
+\indexentry{file-article-pipeline}{2.1 Article Pipeline}
+\indexentry{file-youtube-pipeline}{2.2 YouTube Pipeline}
+\vspace{0.9em}
+
+\indextopic{topic-database}{3. Database}
+\vspace{0.25em}
+\indexentry{file-articles-schema}{3.1 Articles Schema}
+\indexentry{file-youtube-schema}{3.2 YouTube Schema}
+\vspace{0.9em}
+
+\indextopic{topic-llm-usage}{4. LLM Usage}
+\vspace{0.25em}
+\indexentry{file-gemini-kg}{4.1 Gemini --- Knowledge Graph Extraction}
+\indexentry{file-marianmt-translation}{4.2 MarianMT --- Bangla Translation}
+\newpage
+
+\phantomsection\label{topic-overview}
+\section{Overview}
+\phantomsection\label{file-project-overview}
+\subsection{Project Overview}\label{sentiment-analysis--project-overview}
+
+A unified data ingestion pipeline that scrapes \textbf{web news
+articles} and \textbf{YouTube channels} into a shared PostgreSQL
+database. Originally two separate services, now merged into a single
+monorepo with shared configuration, a shared database layer, and a
+unified CLI.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{What It Does}\label{what-it-does}
+
+\textbf{Article Pipeline} Takes a news article URL, scrapes the full
+page using a headless browser, detects the language (with automatic
+Bangla → English translation), and sends the body text to Google Gemini
+to extract a structured knowledge graph of named entities and their
+relationships. Everything --- the article, its translation, and the
+knowledge graph --- is stored in the database.
+
+\textbf{YouTube Pipeline} Takes a registered YouTube channel, enumerates
+all its videos via yt-dlp, and processes each one as a Celery task. For
+every video it downloads the file and captions to NAS, fetches comments
+via the YouTube Data API, and extracts linked external articles and
+related YouTube videos from descriptions, pinned comments, end-screens,
+and sidebar suggestions.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Tech Stack}\label{tech-stack}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Layer & Technology \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Scraping & Playwright (articles), yt-dlp (YouTube) \\
+NLP & Google Gemini (KG extraction), Helsinki-NLP MarianMT (Bangla
+translation) \\
+Task Queue & Celery + Redis \\
+Database & PostgreSQL + SQLAlchemy 2.0 + Alembic \\
+Language & Python 3.12, asyncio \\
+\end{longtable}
+}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Shared Infrastructure}\label{shared-infrastructure}
+
+Both pipelines share:
+
+\begin{itemize}
+\tightlist
+\item
+  A single PostgreSQL database with two service-owned schemas ---
+  \texttt{articles} and \texttt{youtube}
+\item
+  \texttt{sentiment\_analysis/database.py} --- one SQLAlchemy engine and
+  \texttt{get\_session()} context manager used everywhere
+\item
+  \texttt{sentiment\_analysis/config.py} --- single source of truth for
+  all environment variables, loaded from \texttt{.env}
+\item
+  One Alembic migration chain covering both schemas
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Project Structure}\label{project-structure}
+
+\begin{verbatim}
+sentiment_analysis/
+├── config.py          — all env vars + logging setup
+├── database.py        — shared SQLAlchemy engine and get_session()
+├── db_migrations.py   — Alembic runner, auto-creates DB if missing
+├── cli.py             — argument parsing and command dispatch
+├── articles/          — article ingestion sub-package
+│   ├── scraper.py     — Playwright + Trafilatura + BeautifulSoup
+│   ├── translator.py  — Bangla → English (MarianMT)
+│   ├── extractor.py   — Gemini KG extraction
+│   ├── db.py          — persistence layer
+│   ├── models.py      — ORM models (articles schema)
+│   └── service.py     — ingest_url() orchestrator
+└── youtube/           — YouTube ingestion sub-package
+    ├── tasks.py        — Celery tasks (scrape_channel, process_video)
+    ├── celery_app.py   — Celery + Redis config
+    ├── service.py      — CLI command handlers
+    ├── models.py       — ORM models (youtube schema)
+    └── scraper/
+        ├── ytdlp.py    — enumerate, metadata, captions, download
+        ├── comments.py — YouTube Data API comments
+        ├── innertube.py — suggested + end-screen video IDs
+        └── articles.py — link extraction from descriptions
+alembic/                — single migration chain for both schemas
+main.py                 — CLI entrypoint
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Quick Start}\label{quick-start}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cp}\NormalTok{ .env.example .env          }\CommentTok{\# fill in credentials}
+\ExtensionTok{python}\NormalTok{ main.py init           }\CommentTok{\# create DB + run all migrations}
+
+\CommentTok{\# Ingest an article}
+\ExtensionTok{python}\NormalTok{ main.py articles ingest }\StringTok{"https://example.com/article"}
+
+\CommentTok{\# Register and scrape a YouTube channel}
+\ExtensionTok{python}\NormalTok{ main.py youtube add{-}channel }\AttributeTok{{-}{-}channel{-}id}\NormalTok{ UCxxxx }\AttributeTok{{-}{-}name} \StringTok{"Name"} \AttributeTok{{-}{-}url} \StringTok{"https://..."}
+\ExtensionTok{celery} \AttributeTok{{-}A}\NormalTok{ sentiment\_analysis.youtube.celery\_app worker }\AttributeTok{{-}{-}loglevel}\OperatorTok{=}\NormalTok{info }\AttributeTok{{-}{-}concurrency}\OperatorTok{=}\NormalTok{4}
+\ExtensionTok{python}\NormalTok{ main.py youtube scrape }\AttributeTok{{-}{-}channel{-}id}\NormalTok{ UCxxxx}
+\end{Highlighting}
+\end{Shaded}
+
+\phantomsection\label{file-configuration-cli}
+\subsection{Configuration \& CLI}\label{configuration--cli}
+
+All configuration lives in \texttt{sentiment\_analysis/config.py} and is
+loaded from a \texttt{.env} file at startup via \texttt{python-dotenv}.
+Copy \texttt{.env.example} to \texttt{.env} and fill in the required
+values before running anything.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Environment Variables}\label{environment-variables}
+
+{\def\LTcaptype{none} % do not increment counter
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Variable & Default & Description \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{DATABASE\_URL} & --- & PostgreSQL connection string ---
+required \\
+\texttt{REDIS\_URL} & \texttt{redis://localhost:6379/0} & Celery broker
+and result backend \\
+\texttt{YOUTUBE\_API\_KEY} & --- & YouTube Data API v3 key --- required
+for comment fetching \\
+\texttt{GEMINI\_API\_KEY} & --- & Google Gemini API key --- required for
+article KG extraction \\
+\texttt{GEMINI\_MODEL} & \texttt{gemini-3.1-pro-preview} & Primary model
+used for KG extraction \\
+\texttt{GEMINI\_FALLBACK\_MODEL} & \texttt{gemini-2.5-pro} & Fallback
+model if primary fails \\
+\texttt{GEMINI\_MAX\_TOKENS} & \texttt{8000} & Max tokens of body text
+sent to Gemini; longer text is truncated \\
+\texttt{TRANSLATION\_MODEL} & \texttt{Helsinki-NLP/opus-mt-bn-en} &
+HuggingFace model for Bangla → English translation \\
+\texttt{NAS\_BASE\_PATH} & \texttt{/Volumes/Downloaded\ YT\ Videos} &
+Mount point for downloaded video files \\
+\texttt{CAPTIONS\_BASE\_PATH} & \texttt{/Volumes/Captions-\ YT\ Videos}
+& Mount point for caption (VTT) files \\
+\texttt{REQUEST\_DELAY\_SECONDS} & \texttt{3} & Delay between yt-dlp and
+InnerTube API calls to avoid rate limits \\
+\texttt{MAX\_RETRIES} & \texttt{3} & Max Celery task retry attempts
+before giving up \\
+\texttt{VIDEO\_QUALITY} & \texttt{1080} & Max video resolution in pixels
+for yt-dlp downloads \\
+\texttt{LOG\_LEVEL} & \texttt{INFO} & Python logging level
+(\texttt{DEBUG}, \texttt{INFO}, \texttt{WARNING}, etc.) \\
+\end{longtable}
+}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{CLI Reference}\label{cli-reference}
+
+The unified entrypoint is \texttt{python\ main.py}. Commands are
+dispatched via \texttt{sentiment\_analysis/cli.py}.
+
+\paragraph{Initialisation}\label{initialisation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{python}\NormalTok{ main.py init}
+\end{Highlighting}
+\end{Shaded}
+
+Creates the database if it doesn\textquotesingle t exist, then runs all
+Alembic migrations. Run this once before using either pipeline.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\paragraph{Articles}\label{articles}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{python}\NormalTok{ main.py articles ingest }\StringTok{"\textless{}url\textgreater{}"}
+\end{Highlighting}
+\end{Shaded}
+
+Runs the full article pipeline for the given URL --- scrape, translate
+if needed, extract KG, save to DB. Prints the article hash on
+completion. Exits early without error if the URL was already ingested.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\paragraph{YouTube}\label{youtube}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Register a channel (required before scraping)}
+\ExtensionTok{python}\NormalTok{ main.py youtube add{-}channel }\DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}{-}channel{-}id}\NormalTok{ UCxxxx }\DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}{-}name} \StringTok{"Channel Name"} \DataTypeTok{\textbackslash{}}
+  \AttributeTok{{-}{-}url} \StringTok{"https://www.youtube.com/@handle"}
+
+\CommentTok{\# Queue a full channel scrape via Celery}
+\ExtensionTok{python}\NormalTok{ main.py youtube scrape }\AttributeTok{{-}{-}channel{-}id}\NormalTok{ UCxxxx}
+
+\CommentTok{\# Limit to N most recent videos (useful for testing)}
+\ExtensionTok{python}\NormalTok{ main.py youtube scrape }\AttributeTok{{-}{-}channel{-}id}\NormalTok{ UCxxxx }\AttributeTok{{-}{-}limit}\NormalTok{ 50}
+
+\CommentTok{\# Show processing status across all registered channels}
+\ExtensionTok{python}\NormalTok{ main.py youtube status}
+
+\CommentTok{\# Re{-}queue videos stuck in pending or processing}
+\ExtensionTok{python}\NormalTok{ main.py youtube retry }\AttributeTok{{-}{-}channel{-}id}\NormalTok{ UCxxxx}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{scrape} only dispatches tasks --- actual processing requires a
+running Celery worker:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{celery} \AttributeTok{{-}A}\NormalTok{ sentiment\_analysis.youtube.celery\_app worker }\AttributeTok{{-}{-}loglevel}\OperatorTok{=}\NormalTok{info }\AttributeTok{{-}{-}concurrency}\OperatorTok{=}\NormalTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\phantomsection\label{file-article-pipeline}
+\section{Article Pipeline}\label{article-pipeline}
+
+\textbf{Entrypoint:}
+\texttt{python\ main.py\ articles\ ingest\ \textless{}url\textgreater{}}
+\textbf{Orchestrator:}
+\texttt{sentiment\_analysis/articles/service.py\ →\ ingest\_url()}
+\textbf{Execution:} fully async via \texttt{asyncio} --- required
+because both Playwright and the Gemini client expose async APIs
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Flow}\label{flow}
+
+\begin{verbatim}
+URL → dedup check → scrape → detect language → translate (if Bangla)
+    → save article → KG extraction (Gemini) → save KG
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Steps}\label{steps}
+
+\subsubsection{1. Deduplication}\label{1-deduplication}
+
+Before anything runs, the pipeline queries \texttt{articles.articles}
+for the given \texttt{source\_url}. If a match is found, the existing
+hash is returned and the pipeline exits immediately --- no scraping, no
+API calls.
+
+\subsubsection{2. Scraping}\label{2-scraping}
+
+\texttt{scraper.py} launches a headless Chromium browser via Playwright
+with a realistic user-agent to avoid bot blocks. It waits for the page
+to load, captures the full HTML, then:
+
+\begin{itemize}
+\tightlist
+\item
+  Passes the HTML to \textbf{Trafilatura} to extract clean body text
+  (strips ads, nav, boilerplate)
+\item
+  Parses metadata with \textbf{BeautifulSoup} --- headline, author
+  names, publish date, and images --- using a priority chain (JSON-LD →
+  Open Graph meta → HTML fallbacks)
+\end{itemize}
+
+The scraper retries up to \textbf{3 times with exponential backoff} on
+failure.
+
+\subsubsection{3. Language Detection}\label{3-language-detection}
+
+\texttt{langdetect} identifies the language of the body text. Only
+Bangla (\texttt{bn}) triggers translation --- all other languages pass
+through as-is.
+
+\subsubsection{4. Translation (Bangla
+only)}\label{4-translation-bangla-only}
+
+If Bangla is detected, \texttt{translator.py} runs the headline, body,
+and reporter names through \textbf{Helsinki-NLP/opus-mt-bn-en} (a
+MarianMT model loaded lazily on first use). The model has a 512-token
+limit, so text is split into paragraph and sentence-level chunks before
+translating. Original Bangla text is preserved in \texttt{*\_original}
+columns in the DB.
+
+\subsubsection{5. Save Article}\label{5-save-article}
+
+\texttt{db.py} generates a deterministic hash in the format
+\texttt{\{source\}-\{ddmmyyyy\}-\{hhmmss\}-\{seq:03d\}} (e.g.
+\texttt{bbc-08042026-143022-001}). The sequence number is determined
+with \texttt{SELECT\ ...\ FOR\ UPDATE} to prevent collisions under
+concurrent ingestion. The article row is then inserted.
+
+\subsubsection{6. Knowledge Graph
+Extraction}\label{6-knowledge-graph-extraction}
+
+\texttt{extractor.py} sends the body text to \textbf{Google Gemini} with
+a structured prompt instructing it to extract:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Entities (nodes):} PERSON, ORGANIZATION, LOCATION, COUNTRY,
+  COMPANY, EVENT --- canonical names only
+\item
+  \textbf{Relations (edges):} directed, uppercase snake\_case labels
+  like \texttt{VISITED}, \texttt{APPOINTED\_BY}, \texttt{ACQUIRED}
+\end{itemize}
+
+Text is truncated to \texttt{GEMINI\_MAX\_TOKENS} (default 8000) using
+tiktoken before sending. If the primary model fails, it automatically
+retries with the fallback model.
+
+\subsubsection{7. Save Knowledge Graph}\label{7-save-knowledge-graph}
+
+Elements and relations are upserted into \texttt{kg\_elements} and
+\texttt{kg\_relations} using raw \texttt{ON\ CONFLICT} SQL. Any relation
+referencing an entity not in the extracted elements list is silently
+skipped (guards against Gemini hallucinations).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Key Files}\label{key-files}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+File & Role \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{service.py} & Orchestrates the full pipeline end-to-end \\
+\texttt{scraper.py} & Playwright fetch, Trafilatura extraction,
+BeautifulSoup metadata parsing \\
+\texttt{translator.py} & Lazy-loaded MarianMT model, chunk splitting,
+Bangla → English \\
+\texttt{extractor.py} & Gemini API call, primary/fallback model logic,
+token truncation \\
+\texttt{db.py} & Article insert with hash generation, KG upsert \\
+\texttt{models.py} & \texttt{Article}, \texttt{KGElement},
+\texttt{KGRelation} SQLAlchemy models \\
+\end{longtable}
+}
+
+\phantomsection\label{file-youtube-pipeline}
+\section{YouTube Pipeline}\label{youtube-pipeline}
+
+\textbf{Entrypoint:}
+\texttt{python\ main.py\ youtube\ scrape\ -\/-channel-id\ UCxxxx}
+\textbf{Execution:} Celery distributed task queue backed by Redis
+\textbf{Worker:}
+\texttt{celery\ -A\ sentiment\_analysis.youtube.celery\_app\ worker\ -\/-loglevel=info\ -\/-concurrency=4}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Flow}\label{flow-1}
+
+\begin{verbatim}
+CLI → scrape_channel task (Phase A)
+          └─► process_video task × N (Phases B → E)
+                  ├── B: metadata + captions
+                  ├── C: video download → NAS
+                  ├── D: comments (YouTube Data API)
+                  └── E: linked articles + related videos
+\end{verbatim}
+
+Each video is an independent Celery task, so a channel with 500 videos
+spawns 500 parallel tasks processed across however many workers are
+running.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Phases}\label{phases}
+
+\subsubsection{\texorpdfstring{Phase A --- Channel Enumeration
+(\texttt{tasks.py},
+\texttt{ytdlp.py})}{Phase A --- Channel Enumeration (tasks.py, ytdlp.py)}}\label{phase-a--channel-enumeration-taskspy-ytdlppy}
+
+yt-dlp lists all video IDs from the channel\textquotesingle s
+\texttt{/videos} tab in flat-extract mode (fast --- no metadata fetched
+yet). The list is reversed to chronological order, filtered against
+video IDs already in the DB, and then:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{pending} records are inserted into the DB for every new video
+  \textbf{before} any Celery tasks are dispatched --- this ensures no
+  video is silently lost if a task message is dropped
+\item
+  One \texttt{process\_video} task is dispatched per new video
+\item
+  \texttt{last\_scraped\_at} is updated on the channel record
+\end{enumerate}
+
+\subsubsection{\texorpdfstring{Phase B --- Metadata \& Captions
+(\texttt{ytdlp.py})}{Phase B --- Metadata \& Captions (ytdlp.py)}}\label{phase-b--metadata--captions-ytdlppy}
+
+yt-dlp fetches the full video metadata without downloading (title,
+description, duration, view count, like count, thumbnail, upload date
+and timestamp). The \texttt{internal\_id} is built from this:
+\texttt{\{channel\}-\{ddmmyyyy\}-\{hhmmss\}-\{seq\}}.
+
+Captions are downloaded separately in VTT format to
+\texttt{\{CAPTIONS\_BASE\_PATH\}/\{channel\_id\}/}. Manual subtitles are
+tried first; auto-generated captions are the fallback. The relative path
+is stored in the DB as \texttt{\{"en":\ "path/to/file.en.vtt"\}}.
+
+\subsubsection{\texorpdfstring{Phase C --- Video Download
+(\texttt{ytdlp.py})}{Phase C --- Video Download (ytdlp.py)}}\label{phase-c--video-download-ytdlppy}
+
+The video file is downloaded to
+\texttt{\{NAS\_BASE\_PATH\}/\{channel\_id\}/} at up to
+\texttt{VIDEO\_QUALITY} resolution (default 1080p), merged into MP4. The
+path stored in the DB is relative to \texttt{NAS\_BASE\_PATH} so it
+stays valid regardless of where the volume is mounted.
+
+\subsubsection{\texorpdfstring{Phase D --- Comments
+(\texttt{comments.py})}{Phase D --- Comments (comments.py)}}\label{phase-d--comments-commentspy}
+
+The YouTube Data API v3 \texttt{commentThreads} endpoint is paginated
+(100 per page) to collect all top-level comments and their replies. Each
+comment stores the author, text, timestamp, and a \texttt{reply\_to}
+field (null for top-level, parent comment ID for replies). Skips
+gracefully if comments are disabled or \texttt{YOUTUBE\_API\_KEY} is
+absent.
+
+\subsubsection{\texorpdfstring{Phase E --- Linked Content Discovery
+(\texttt{articles.py},
+\texttt{innertube.py})}{Phase E --- Linked Content Discovery (articles.py, innertube.py)}}\label{phase-e--linked-content-discovery-articlespy-innertubepy}
+
+Three types of related content are extracted and stored:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Linked articles} --- non-YouTube URLs from the description and
+  pinned comment. Each URL is followed through redirects to resolve
+  shorteners (e.g. \texttt{bbc.in} → full URL). Domain and page title
+  are recorded.
+\item
+  \textbf{Related videos from description} --- YouTube video URLs found
+  in the description text, stored as \texttt{description-linked}
+\item
+  \textbf{Suggested videos} --- sidebar suggestions fetched from
+  YouTube\textquotesingle s internal InnerTube \texttt{/next} API,
+  stored as \texttt{suggested}
+\item
+  \textbf{End-screen videos} --- video IDs extracted from
+  \texttt{ytInitialPlayerResponse} in the watch page HTML, stored as
+  \texttt{end-screen}
+\end{itemize}
+
+All sources are deduplicated before writing to the DB.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Error Handling}\label{error-handling}
+
+Non-fatal steps (captions, comments, Phase E) are individually wrapped
+--- a failure in one logs a warning and the pipeline continues. The
+video is still marked \texttt{processed}.
+
+For \texttt{DownloadError} from yt-dlp: rate limits, SSL errors, and
+ffmpeg failures retry with a 120-second delay. Permanently unavailable
+videos (private, deleted) are logged and discarded cleanly.
+
+All other errors trigger automatic Celery retries up to
+\texttt{MAX\_RETRIES} times (default 3). \texttt{task\_acks\_late=True}
+and \texttt{task\_reject\_on\_worker\_lost=True} ensure tasks are not
+lost if a worker is killed mid-execution.
+
+Stuck \texttt{pending} or \texttt{processing} videos can be re-queued
+with:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{python}\NormalTok{ main.py youtube retry }\AttributeTok{{-}{-}channel{-}id}\NormalTok{ UCxxxx}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Key Files}\label{key-files-1}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+File & Role \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{tasks.py} & \texttt{scrape\_channel} (Phase A) and
+\texttt{process\_video} (B--E) Celery tasks \\
+\texttt{celery\_app.py} & Celery app wired to Redis with reliability
+settings \\
+\texttt{service.py} & CLI handlers --- add-channel, scrape, status,
+retry \\
+\texttt{scraper/ytdlp.py} & Channel enumeration, metadata, captions,
+video download \\
+\texttt{scraper/comments.py} & YouTube Data API v3 comment pagination \\
+\texttt{scraper/innertube.py} & Suggested and end-screen video IDs \\
+\texttt{scraper/articles.py} & URL extraction and redirect resolution
+from description/comments \\
+\texttt{models.py} & \texttt{Channel}, \texttt{Video}, \texttt{Comment},
+\texttt{RelatedVideo}, \texttt{LinkedArticle} \\
+\end{longtable}
+}
+
+\phantomsection\label{file-articles-schema}
+\section{Articles Schema}\label{articles-schema}
+
+The \texttt{articles} schema stores scraped news article content
+alongside the knowledge graph extracted from each article by Gemini. All
+tables cascade-delete on article removal.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{\texttt{articles.articles}}{articles.articles}}\label{articlesarticles}
+
+One row per scraped news article. For Bangla sources, translated English
+content and the original Bangla text are stored side by side.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Column & Type & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{hash} & String & Unique ID:
+\texttt{\{source\}-\{ddmmyyyy\}-\{hhmmss\}-\{seq:03d\}} \\
+\texttt{source\_url} & Text & Unique --- used for deduplication \\
+\texttt{headline} & Text & English (translated if source is Bangla) \\
+\texttt{reporters} & Text{[}{]} & Array of author names \\
+\texttt{body\_text} & Text & Cleaned article body \\
+\texttt{media\_urls} & JSONB &
+\texttt{{[}\{"url":\ "...",\ "type":\ "image"\}{]}} \\
+\texttt{language} & String & Detected language code (e.g. \texttt{en},
+\texttt{bn}) \\
+\texttt{headline\_original} & Text & Bangla original headline --- null
+if not translated \\
+\texttt{body\_text\_original} & Text & Bangla original body --- null if
+not translated \\
+\texttt{reporters\_original} & Text{[}{]} & Bangla original reporter
+names \\
+\end{longtable}
+}
+
+Has a GIN full-text search index on
+\texttt{headline\ \textbar{}\textbar{}\ body\_text}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{\texttt{articles.kg\_elements}}{articles.kg\_elements}}\label{articleskg_elements}
+
+Named entity nodes extracted by Gemini. Each row is one distinct entity
+within one article.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Column & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{article\_hash} & FK → \texttt{articles.hash} \\
+\texttt{name} & Canonical entity name (e.g. \texttt{"United\ Nations"},
+not \texttt{"the\ UN"}) \\
+\texttt{entity\_type} & One of:
+\texttt{PERSON\ /\ ORGANIZATION\ /\ LOCATION\ /\ COUNTRY\ /\ COMPANY\ /\ EVENT} \\
+\end{longtable}
+}
+
+Unique on \texttt{(article\_hash,\ name,\ entity\_type)} --- no
+duplicate entities per article.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{\texttt{articles.kg\_relations}}{articles.kg\_relations}}\label{articleskg_relations}
+
+Directed edges between knowledge graph nodes within the same article.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Column & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{article\_hash} & FK → \texttt{articles.hash} \\
+\texttt{subject\_id} & FK → \texttt{kg\_elements.id} --- the "from"
+node \\
+\texttt{object\_id} & FK → \texttt{kg\_elements.id} --- the "to" node \\
+\texttt{relation} & Uppercase snake\_case label (e.g.
+\texttt{APPOINTED\_BY}, \texttt{HEADQUARTERED\_IN}) \\
+\end{longtable}
+}
+
+Unique on
+\texttt{(article\_hash,\ subject\_id,\ object\_id,\ relation)}.
+
+\phantomsection\label{file-youtube-schema}
+\section{YouTube Schema}\label{youtube-schema}
+
+The \texttt{youtube} schema stores everything collected from YouTube
+channels --- channel records, per-video metadata and file paths,
+comments, related videos, and linked external articles. All tables
+cascade-delete from \texttt{channels} down.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{\texttt{youtube.channels}}{youtube.channels}}\label{youtubechannels}
+
+Registered YouTube channels. A channel must be added here before it can
+be scraped.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Column & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{channel\_id} & YouTube\textquotesingle s channel ID string (e.g.
+\texttt{UCxxxxxx}) --- unique \\
+\texttt{name} & Human-readable display name \\
+\texttt{url} & Channel URL (e.g.
+\texttt{https://www.youtube.com/@bbcnews}) \\
+\texttt{last\_scraped\_at} & UTC timestamp of the last successful
+\texttt{scrape\_channel} run \\
+\end{longtable}
+}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{\texttt{youtube.videos}}{youtube.videos}}\label{youtubevideos}
+
+One row per video. Created as \texttt{pending} in Phase A and updated to
+\texttt{processed} after all phases complete.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Column & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{internal\_id} & Unique slug:
+\texttt{\{channel\}-\{ddmmyyyy\}-\{hhmmss\}-\{seq\}} \\
+\texttt{yt\_video\_id} & YouTube\textquotesingle s video ID ---
+unique \\
+\texttt{channel\_id} & FK → \texttt{channels.id} \\
+\texttt{title}, \texttt{description}, \texttt{duration},
+\texttt{view\_count}, \texttt{like\_count}, \texttt{thumbnail\_url} &
+Metadata from yt-dlp \\
+\texttt{nas\_file\_path} & Relative path to the downloaded video on
+NAS \\
+\texttt{caption\_nas\_path} & JSONB:
+\texttt{\{"en":\ "UCxxxxxx/videoId.en.vtt"\}} \\
+\texttt{status} & \texttt{pending\ →\ processing\ →\ processed} \\
+\end{longtable}
+}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{\texttt{youtube.comments}}{youtube.comments}}\label{youtubecomments}
+
+All comments and replies fetched from the YouTube Data API. Top-level
+comments and replies share the same table, distinguished by
+\texttt{reply\_to}.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Column & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{video\_id} & FK → \texttt{videos.id} \\
+\texttt{comment\_id} & YouTube\textquotesingle s comment ID ---
+unique \\
+\texttt{author}, \texttt{text}, \texttt{published\_at} & Comment
+content \\
+\texttt{reply\_to} & Parent comment ID --- null for top-level, set for
+replies \\
+\end{longtable}
+}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{\texttt{youtube.related\_videos}}{youtube.related\_videos}}\label{youtuberelated_videos}
+
+YouTube videos linked to a given video, sourced from descriptions,
+sidebar suggestions, and end-screens.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Column & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{video\_id} & FK → \texttt{videos.id} \\
+\texttt{related\_video\_id} & YouTube video ID of the related video \\
+\texttt{url} & Full \texttt{https://www.youtube.com/watch?v=...} URL \\
+\texttt{relation\_type} &
+\texttt{suggested\ /\ end-screen\ /\ description-linked} \\
+\end{longtable}
+}
+
+Unique on \texttt{(video\_id,\ related\_video\_id)}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{\texorpdfstring{\texttt{youtube.linked\_articles}}{youtube.linked\_articles}}\label{youtubelinked_articles}
+
+External (non-YouTube) article URLs found in a video\textquotesingle s
+description or pinned comment. Redirects are followed to store the final
+resolved URL.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Column & Notes \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{video\_id} & FK → \texttt{videos.id} \\
+\texttt{url} & Final resolved URL (after following redirects) \\
+\texttt{domain} & Extracted domain (e.g. \texttt{bbc.com}) \\
+\texttt{title} & Page title fetched at discovery time \\
+\texttt{found\_in} & \texttt{description} or \texttt{pinned-comment} \\
+\end{longtable}
+}
+
+Unique on \texttt{(video\_id,\ url)}.
+
+\phantomsection\label{file-gemini-kg}
+\section{Gemini --- Knowledge Graph
+Extraction}\label{gemini--knowledge-graph-extraction}
+
+\textbf{File:} \texttt{sentiment\_analysis/articles/extractor.py}
+\textbf{Called from:}
+\texttt{sentiment\_analysis/articles/service.py\ →\ ingest\_url()}
+\textbf{Trigger:} Every time an article is ingested
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{What It Does}\label{what-it-does-1}
+
+After an article is scraped and saved, its body text is sent to Google
+Gemini to extract a structured knowledge graph. The model identifies
+named entities and the relationships between them, which are then stored
+in \texttt{articles.kg\_elements} and \texttt{articles.kg\_relations}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Models Used}\label{models-used}
+
+Two models are configured --- a primary and a fallback. If the primary
+fails for any reason (rate limit, timeout, API error), the request is
+automatically retried with the fallback.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Role & Model & Config Variable \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Primary & \texttt{gemini-3.1-pro-preview} & \texttt{GEMINI\_MODEL} \\
+Fallback & \texttt{gemini-2.5-pro} & \texttt{GEMINI\_FALLBACK\_MODEL} \\
+\end{longtable}
+}
+
+Both are overridable via environment variables.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{What the Model Extracts}\label{what-the-model-extracts}
+
+The model is prompted to return two things:
+
+\textbf{Elements (nodes)} --- named entities with canonical names and
+one of six fixed types:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Type & Examples \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{PERSON} & Narendra Modi, Hillary Clinton \\
+\texttt{ORGANIZATION} & United Nations, NATO \\
+\texttt{LOCATION} & New Delhi, the Himalayas \\
+\texttt{COUNTRY} & India, Bangladesh \\
+\texttt{COMPANY} & Apple, Reliance Industries \\
+\texttt{EVENT} & G20 Summit, 2024 General Elections \\
+\end{longtable}
+}
+
+\textbf{Relations (edges)} --- directed triples connecting two elements:
+
+\begin{verbatim}
+{ "subject": "Narendra Modi", "relation": "VISITED", "object": "Bangladesh" }
+\end{verbatim}
+
+Relations use standardised uppercase snake\_case labels
+(\texttt{APPOINTED\_BY}, \texttt{ACQUIRED}, \texttt{HEADQUARTERED\_IN},
+etc.) so they\textquotesingle re reusable across articles.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{How the API is Called}\label{how-the-api-is-called}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{response }\OperatorTok{=} \ControlFlowTok{await}\NormalTok{ client.aio.models.generate\_content(}
+\NormalTok{    model}\OperatorTok{=}\NormalTok{model,}
+\NormalTok{    contents}\OperatorTok{=}\NormalTok{prompt,}
+\NormalTok{    config}\OperatorTok{=}\NormalTok{types.GenerateContentConfig(}
+\NormalTok{        response\_mime\_type}\OperatorTok{=}\StringTok{"application/json"}\NormalTok{,}
+\NormalTok{        response\_schema}\OperatorTok{=}\NormalTok{\_RESPONSE\_SCHEMA,}
+\NormalTok{        temperature}\OperatorTok{=}\FloatTok{0.0}\NormalTok{,}
+\NormalTok{    ),}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{response\_mime\_type="application/json"} --- forces structured
+  JSON output
+\item
+  \texttt{response\_schema} --- enforces the exact shape of the response
+  including the entity type enum, so the model can\textquotesingle t
+  return unexpected values
+\item
+  \texttt{temperature=0.0} --- deterministic output, minimises
+  hallucinations
+\end{itemize}
+
+The call is made asynchronously via
+\texttt{client.aio.models.generate\_content}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Token Truncation}\label{token-truncation}
+
+Before the prompt is built, the body text is truncated to
+\texttt{GEMINI\_MAX\_TOKENS} (default: 8000) using \textbf{tiktoken}
+with the \texttt{cl100k\_base} encoding. This ensures the request stays
+within model limits for long articles. A warning is logged when
+truncation occurs.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Prompt Design}\label{prompt-design}
+
+The prompt instructs the model to think in terms of a formal graph
+(nodes and edges). Key rules enforced in the prompt:
+
+\begin{itemize}
+\tightlist
+\item
+  Use canonical, globally recognisable names --- no pronouns or
+  abbreviations
+\item
+  Deduplicate coreferences (same entity mentioned multiple ways = one
+  node)
+\item
+  Only create relations between entities explicitly extracted as
+  elements
+\item
+  Avoid orphaned nodes with no edges unless the entity is the central
+  subject
+\item
+  Return raw JSON only --- no markdown, no explanation
+\end{itemize}
+
+\phantomsection\label{file-marianmt-translation}
+\section{MarianMT --- Bangla
+Translation}\label{marianmt--bangla-translation}
+
+\textbf{File:} \texttt{sentiment\_analysis/articles/translator.py}
+\textbf{Called from:}
+\texttt{sentiment\_analysis/articles/service.py\ →\ ingest\_url()}
+\textbf{Trigger:} Only when \texttt{langdetect} identifies the article
+language as Bangla (\texttt{bn})
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{What It Does}\label{what-it-does-2}
+
+Translates Bangla-language article content into English before it is
+saved to the database and sent to Gemini. The original Bangla text is
+preserved alongside the translation in \texttt{*\_original} columns.
+
+Three fields are translated:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{headline}
+\item
+  \texttt{body\_text}
+\item
+  \texttt{reporters} (each name individually)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Model Used}\label{model-used}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Detail & Value \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Model & \texttt{Helsinki-NLP/opus-mt-bn-en} \\
+Type & MarianMT (sequence-to-sequence transformer) \\
+Source & HuggingFace Transformers \\
+Config variable & \texttt{TRANSLATION\_MODEL} \\
+\end{longtable}
+}
+
+The model is loaded \textbf{lazily} --- it is not imported or
+initialised at startup, only on the first Bangla article encountered.
+This avoids loading several hundred MB of weights on every run.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Token Limit Handling}\label{token-limit-handling}
+
+MarianMT has a hard input limit of \textbf{512 tokens}. Bangla articles
+routinely exceed this, so text is split into chunks before translating:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Split on double newlines (paragraph boundaries)
+\item
+  If a paragraph exceeds 1000 characters (\textasciitilde400--500 Bangla
+  tokens), split further on sentence-ending punctuation (\texttt{।},
+  \texttt{?}, \texttt{!})
+\item
+  Accumulate sentences into chunks that stay under 1000 characters
+\item
+  Each chunk is translated independently and the results are rejoined
+  with double newlines
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{How the Model is Called}\label{how-the-model-is-called}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{inputs }\OperatorTok{=}\NormalTok{ \_tokenizer(}
+\NormalTok{    [chunk],}
+\NormalTok{    return\_tensors}\OperatorTok{=}\StringTok{"pt"}\NormalTok{,}
+\NormalTok{    padding}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
+\NormalTok{    truncation}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
+\NormalTok{    max\_length}\OperatorTok{=}\DecValTok{512}\NormalTok{,}
+\NormalTok{)}
+\NormalTok{outputs }\OperatorTok{=}\NormalTok{ \_model.generate(}\OperatorTok{**}\NormalTok{inputs)}
+\NormalTok{translated }\OperatorTok{=}\NormalTok{ \_tokenizer.decode(outputs[}\DecValTok{0}\NormalTok{], skip\_special\_tokens}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Each chunk goes through the tokenizer → model → decoder independently.
+The final output is the chunks joined back together.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{What Gets Stored}\label{what-gets-stored}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+DB Column & Content \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{headline} & Translated English headline \\
+\texttt{body\_text} & Translated English body \\
+\texttt{reporters} & Translated English names \\
+\texttt{headline\_original} & Original Bangla headline \\
+\texttt{body\_text\_original} & Original Bangla body \\
+\texttt{reporters\_original} & Original Bangla reporter names \\
+\texttt{language} & Set to \texttt{"bn"} to record the source
+language \\
+\end{longtable}
+}
+
+\section{Claude Context}\label{claude-context}
+
+\subsection{Paths}\label{paths}
+
+\begin{itemize}
+\tightlist
+\item
+  Project code: /Users/amaanirfan/Desktop/Data Scraping/Sentiment
+  Analysis
+\item
+  Documentation vault: /Users/amaanirfan/Desktop/Sentiment Analysis Docs
+\end{itemize}
+
+\subsection{My Job}\label{my-job}
+
+When Amaan describes work or asks me to document something:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Read the relevant files from the project code path above
+\item
+  Extract context --- file structure, functions, logic, recent changes
+\item
+  Write clean documentation into the Obsidian vault
+\item
+  Use proper frontmatter, {[}{[}wikilinks{]}{]}, and tags on every note
+\item
+  You have to go through the code base and document everything
+  accordingly. It should be well structured and nicely written.
+\end{enumerate}
+
+\end{document}
