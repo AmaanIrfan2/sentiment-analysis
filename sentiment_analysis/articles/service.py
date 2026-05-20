@@ -2,7 +2,7 @@ import logging
 
 from langdetect import LangDetectException, detect
 
-from sentiment_analysis.articles import db, extractor, scraper, translator
+from sentiment_analysis.articles import db, scraper, translator
 from sentiment_analysis.database import get_session
 
 logger = logging.getLogger(__name__)
@@ -56,11 +56,11 @@ async def ingest_url(url: str) -> str:
             reporters_original=reporters_original,
         )
 
-    logger.info("Running KG extraction")
-    elements, relations = await extractor.extract(article["body_text"])
+    # logger.info("Running KG extraction")
+    # elements, relations = await extractor.extract(article["body_text"])
 
-    with get_session() as session:
-        db.save_elements_and_relations(session, article_hash, elements, relations)
+    # with get_session() as session:
+    #     db.save_elements_and_relations(session, article_hash, elements, relations)
 
     logger.info("Ingested article %s", article_hash)
     return article_hash
