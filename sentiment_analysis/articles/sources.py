@@ -1,11 +1,22 @@
 SOURCES = {
     "bbc": {
-        "sitemap": "https://www.bbc.com/sitemaps/https-index-com-news.xml",
-        "article_pattern": "/articles/"
+        "domain": "https://www.bbc.com",
+        "rss_url": "http://feeds.bbci.co.uk/news/rss.xml",
+        "include_patterns": ["/articles/"],
+        "exclude_patterns": [
+            "/video/",
+            "/audio/",
+            "/topics/"
+        ]
     },
 
     "indianexpress": {
-        "sitemap": "https://indianexpress.com/news-sitemap.xml",
-        "article_pattern": "/article/"
+        "domain": "https://indianexpress.com",
+        "rss_url": "https://indianexpress.com/feed/",
+        "include_patterns": ["/article/"],
+        "exclude_patterns": [
+            "/section/",
+            "/trending/"
+        ]
     }
 }

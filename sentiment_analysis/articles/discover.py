@@ -1,94 +1,97 @@
-import requests
 import asyncio
-from bs4 import BeautifulSoup
+import feedparser
+
 from sentiment_analysis.articles.service import ingest_url
 from sentiment_analysis.articles.sources import SOURCES
+from trafilatura.sitemaps import sitemap_search
 
-def fetch_sitemap_urls(sitemap_index):
-    response = requests.get(sitemap_index)
 
-    print("status: ",response.status_code)
+def is_article_url(url, source):
 
-    soup = BeautifulSoup(response.text,"xml")
-    sitemap_tags = soup.find_all("loc")
+    for pattern in source["exclude_patterns"]:
+        if pattern in url:
+            return False
 
-    sitemap_urls = []
+    for pattern in source["include_patterns"]:
+        if pattern in url:
+            return True
 
-    for tag in sitemap_tags[:5]:
-        sitemap_urls.append(tag.text)
-    return sitemap_urls
+    return False
 
-def fetch_article_urls(sitemap_url, article_pattern):
-    response = requests.get(sitemap_url)
 
-    print("\nFetching:", sitemap_url)
-    print("status:", response.status_code)
+def fetch_rss_urls(rss_url):
 
-    soup = BeautifulSoup(response.text,"xml")
+    feed = feedparser.parse(rss_url)
 
-    url_tags = soup.find_all("url")
-    #storing both date and url
-    article_data = []
+    urls = []
 
-    for url_tag in url_tags:
+    for entry in feed.entries:
+        urls.append(entry.link)
 
-        loc_tag = url_tag.find("loc")
-        publication_tag = url_tag.find("news:publication_date")
+    return urls
 
-        if not loc_tag or not publication_tag:
-            continue
-        url = loc_tag.text
-        publication_date = publication_tag.text
 
-        if article_pattern in url:
-            article_data.append({
-                "url": url,
-                "publication_date": publication_date
-            })
-    return article_data
+def fetch_sitemap_urls(domain):
 
-async def discover_articles(source_name, target_date):
+    return sitemap_search(domain)
+
+
+async def discover_articles(source_name, method):
+
     source = SOURCES[source_name]
-    
-    sitemap_index = source["sitemap"]
-    article_pattern = source["article_pattern"]
 
-    sitemap_urls = fetch_sitemap_urls(sitemap_index)
+    if method == "rss":
 
-    filtered_articles = []
+        urls = fetch_rss_urls(source["rss_url"])
 
-    for sitemap in sitemap_urls:
-        article_data = fetch_article_urls(sitemap,article_pattern)
+    elif method == "sitemap":
 
-        for article in article_data:
-            publication_date = article["publication_date"]
+        urls = fetch_sitemap_urls(source["domain"])
 
-            if publication_date.startswith(target_date):
-                filtered_articles.append(article)
+    else:
+        raise ValueError("method must be 'rss' or 'sitemap'")
 
-    print(f"\nFound {len(filtered_articles)} matching articles")
-        
-    for article in filtered_articles[:5]:
+    print(f"Discovered {len(urls)} URLs")
 
-        url = article["url"]
-        publication_date = article["publication_date"]
+    filtered_urls = []
+
+    for url in urls:
+        if is_article_url(url, source):
+            filtered_urls.append(url)
+
+    print(f"Filtered to {len(filtered_urls)} URLs")
+
+    MAX_ARTICLES = 10
+
+    for url in filtered_urls[:MAX_ARTICLES]:
 
         print("\nIngesting article:")
         print(url)
-        print("Publication Date:", publication_date)
 
         try:
             article_hash = await ingest_url(url)
 
             print("\nSuccessfully ingested:")
             print(article_hash)
+
         except Exception as e:
             print("\nFailed to ingest:")
             print(url)
             print("Error:", e)
-    
+
+
 async def main():
-    await discover_articles("bbc","2026-05-20")
+
+    # await discover_articles(
+    #     source_name="bbc",
+    #     method="rss"
+    # )
+
+    await discover_articles(
+        source_name="indianexpress",
+        method="rss"
+    )
+
 
 if __name__ == "__main__":
     asyncio.run(main())
