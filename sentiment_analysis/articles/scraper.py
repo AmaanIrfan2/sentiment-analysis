@@ -122,44 +122,61 @@ def _parse_html(html: str, url: str) -> dict:
     }
 
 
-async def scrape(url: str) -> dict:
+async def scrape(url: str, browser) -> dict:
     """
     Fetch and parse an article. Returns structured content dict.
     Retries up to 3 times with exponential backoff.
     """
     import asyncio
-    from playwright.async_api import async_playwright
 
     html = None
     last_error = None
 
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        for attempt in range(1, 4):
-            try:
-                context = await browser.new_context(
-                    user_agent=(
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                        "AppleWebKit/537.36 (KHTML, like Gecko) "
-                        "Chrome/120.0.0.0 Safari/537.36"
-                    )
+    for attempt in range(1, 4):
+        context = None
+
+        try:
+            context = await browser.new_context(
+                user_agent=(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/120.0.0.0 Safari/537.36"
                 )
-                page = await context.new_page()
-                await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
-                try:
-                    await page.wait_for_load_state("networkidle", timeout=10_000)
-                except Exception:
-                    pass  # content is already loaded; ignore idle timeout
-                html = await page.content()
+            )
+
+            page = await context.new_page()
+
+            await page.goto(
+                url,
+                wait_until="domcontentloaded",
+                timeout=30_000
+            )
+
+            try:
+                await page.wait_for_load_state(
+                    "networkidle",
+                    timeout=10_000
+                )
+            except Exception:
+                pass
+
+            html = await page.content()
+            break
+
+        except Exception as e:
+            last_error = e
+            logger.warning(
+                "Scrape attempt %d/3 failed: %s",
+                attempt,
+                e
+            )
+
+            if attempt < 3:
+                await asyncio.sleep(2 ** attempt)
+
+        finally:
+            if context:
                 await context.close()
-                break
-            except Exception as e:
-                last_error = e
-                await context.close()
-                logger.warning("Scrape attempt %d/3 failed: %s", attempt, e)
-                if attempt < 3:
-                    await asyncio.sleep(2 ** attempt)
-        await browser.close()
 
     if not html:
         raise RuntimeError(f"Failed to fetch {url} after 3 attempts: {last_error}")

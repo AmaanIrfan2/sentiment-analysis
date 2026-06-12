@@ -8,7 +8,7 @@ from sentiment_analysis.database import get_session
 logger = logging.getLogger(__name__)
 
 
-async def ingest_url(url: str) -> str:
+async def ingest_url(url: str,browser) -> str:
     with get_session() as session:
         existing_hash = db.already_ingested(session, url)
         if existing_hash:
@@ -16,7 +16,7 @@ async def ingest_url(url: str) -> str:
             return existing_hash
 
     logger.info("Scraping %s", url)
-    article = await scraper.scrape(url)
+    article = await scraper.scrape(url,browser)
     logger.info("Scraped: %s", article["headline"])
 
     headline_original = None
@@ -55,12 +55,6 @@ async def ingest_url(url: str) -> str:
             body_text_original=body_text_original,
             reporters_original=reporters_original,
         )
-
-    # logger.info("Running KG extraction")
-    # elements, relations = await extractor.extract(article["body_text"])
-
-    # with get_session() as session:
-    #     db.save_elements_and_relations(session, article_hash, elements, relations)
 
     logger.info("Ingested article %s", article_hash)
     return article_hash

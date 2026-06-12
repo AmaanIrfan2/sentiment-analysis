@@ -4,7 +4,8 @@ import feedparser
 from sentiment_analysis.articles.service import ingest_url
 from sentiment_analysis.articles.sources import SOURCES
 from trafilatura.sitemaps import sitemap_search
-
+from playwright.async_api import async_playwright
+    
 
 def is_article_url(url, source):
 
@@ -36,7 +37,7 @@ def fetch_sitemap_urls(domain):
     return sitemap_search(domain)
 
 
-async def discover_articles(source_name, method):
+async def discover_articles(source_name, method,limit=10):
 
     source = SOURCES[source_name]
 
@@ -60,37 +61,43 @@ async def discover_articles(source_name, method):
             filtered_urls.append(url)
 
     print(f"Filtered to {len(filtered_urls)} URLs")
+    
+    async with async_playwright() as p:
 
-    MAX_ARTICLES = 10
+        print("Launching browser...")
+        browser = await p.chromium.launch(headless=True)
 
-    for url in filtered_urls[:MAX_ARTICLES]:
+        for url in filtered_urls[:limit]:
 
-        print("\nIngesting article:")
-        print(url)
-
-        try:
-            article_hash = await ingest_url(url)
-
-            print("\nSuccessfully ingested:")
-            print(article_hash)
-
-        except Exception as e:
-            print("\nFailed to ingest:")
+            print("\nIngesting article:")
             print(url)
-            print("Error:", e)
 
+            try:
+                article_hash = await ingest_url(url, browser)
+
+                print("\nSuccessfully ingested:")
+                print(article_hash)
+
+            except Exception as e:
+                print("\nFailed to ingest:")
+                print(url)
+                print("Error:", e)
+
+        await browser.close()
 
 async def main():
 
-    # await discover_articles(
-    #     source_name="bbc",
-    #     method="rss"
-    # )
-
     await discover_articles(
-        source_name="indianexpress",
-        method="rss"
+        source_name="bbc",
+        method="rss",
+        limit = 2
     )
+
+    # await discover_articles(
+    #     source_name="indianexpress",
+    #     method="rss",
+    #     limit = 2
+    # )
 
 
 if __name__ == "__main__":
