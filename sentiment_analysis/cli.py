@@ -18,6 +18,22 @@ def build_parser() -> argparse.ArgumentParser:
     p_ingest = articles_sub.add_parser("ingest", help="Ingest an article URL into the KG")
     p_ingest.add_argument("url")
 
+    p_discover = articles_sub.add_parser(
+        "discover",
+        help="Discover and ingest articles from a source"
+    )
+    p_discover.add_argument("--source", required=True)
+    p_discover.add_argument(
+        "--method",
+        choices=["rss", "sitemap"],
+        default="rss"
+    )
+    p_discover.add_argument(
+        "--limit",
+        type=int,
+        default=10
+    )
+
     p_youtube = root.add_parser("youtube", help="YouTube ingestion commands")
     youtube_sub = p_youtube.add_subparsers(dest="command", required=True)
 
@@ -50,11 +66,33 @@ def main() -> None:
         return
 
     if args.service == "articles":
+
         if args.command == "ingest":
+            from playwright.async_api import async_playwright
             from sentiment_analysis.articles.service import ingest_url
 
-            article_hash = asyncio.run(ingest_url(args.url))
-            print(f"Ingested article: {article_hash}")
+            async def run_ingest():
+                async with async_playwright() as p:
+                    browser = await p.chromium.launch(headless=True)
+                    try:
+                        article_hash = await ingest_url(args.url, browser)
+                        print(f"Ingested article: {article_hash}")
+                    finally:
+                        await browser.close()
+
+            asyncio.run(run_ingest())
+
+        elif args.command == "discover":
+            from sentiment_analysis.articles.discover import discover_articles
+
+            asyncio.run(
+                discover_articles(
+                    source_name=args.source,
+                    method=args.method,
+                    limit=args.limit,
+                )
+            )
+
         return
 
     from sentiment_analysis.youtube import service as youtube_service
@@ -66,3 +104,6 @@ def main() -> None:
         "retry": youtube_service.cmd_retry,
     }
     commands[args.command](args)
+
+if __name__ == "__main__":
+    main()
